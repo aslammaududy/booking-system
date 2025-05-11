@@ -1,0 +1,6 @@
+type Booking{
+    id: Int!
+    start_time: String!
+    end_time: String!
+    email: String!
+}
