@@ -4,3 +4,14 @@ type Booking{
     end_time: String!
     email: String!
 }
+
+type BookingMutation {
+    create(start_time: String!, end_time:String!, email:String!): Booking! @create
+
+    delete(id: Int): Booking @delete
+}
+
+type BookingQuery {
+    bookings: [Booking!]! @all
+    bookingBetween(start_time: String! @where(operator: ">="), end_time: String! @where(operator: ">=")): [Booking!] @all
+}

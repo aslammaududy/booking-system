@@ -5,6 +5,7 @@ type Availability{
     end_time: String!
 }
 
-type Mutation{
-    updateAvailability(id: Int!, weekday: Int!, start_time: String!, end_time: String!): Availability @update
+type AvailabiltyMutation {
+    updateAvailability(id: Int!, start_time: String!, end_time: String!): Availability @update
 }
+
