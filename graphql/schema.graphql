@@ -18,35 +18,35 @@ type Query {
         name: String @where(operator: "like")
     ): [User!]! @paginate(defaultCount: 10)
 
-    book: BookingQuery! @namespaced
-    availabilities: [Availability!]! @all
+    book: BookingQuery! @namespaced @guard
+    availabilities: [Availability!]! @all @guard
 }
 
 
-type Mutation{
+type Mutation @guard {
     book: BookingMutation! @namespaced
     availability: AvailabiltyMutation! @namespaced
 }
-"Account of a person who utilizes this application."
-type User {
-    "Unique primary key."
-    id: Int!
-
-    "Non-unique name."
-    name: String!
-
-    "Unique email address."
-    email: String!
-
-    "When the email was verified."
-    email_verified_at: DateTime
-
-    "When the account was created."
-    created_at: DateTime!
-
-    "When the account was last updated."
-    updated_at: DateTime!
-}
+#"Account of a person who utilizes this application."
+#type User {
+#    "Unique primary key."
+#    id: Int!
+#
+#    "Non-unique name."
+#    name: String!
+#
+#    "Unique email address."
+#    email: String!
+#
+#    "When the email was verified."
+#    email_verified_at: DateTime
+#
+#    "When the account was created."
+#    created_at: DateTime!
+#
+#    "When the account was last updated."
+#    updated_at: DateTime!
+#}
 
 #import booking.graphql
 #import availability.graphql

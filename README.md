@@ -4,9 +4,10 @@ This is a Laravel-based booking system designed to manage user bookings and avai
 
 ## Features
 
-- User management with authentication.
+- User management with authentication using Laravel Sanctum.
 - Booking and availability management.
-- GraphQL API for flexible data querying.
+- GraphQL API for flexible data querying, with a built-in GraphiQL interface for testing queries.
+- Custom password reset URL logic for seamless user experience.
 - Database migrations and seeding for easy setup.
 
 ## Requirements
@@ -46,6 +47,10 @@ This is a Laravel-based booking system designed to manage user bookings and avai
    php artisan migrate --seed
    ```
 
+   Recent migrations include:
+   - `bookings` table for managing user bookings.
+   - `availabilities` table for managing availability schedules.
+
 6. Build frontend assets:
    ```bash
    npm run build
@@ -58,14 +63,72 @@ This is a Laravel-based booking system designed to manage user bookings and avai
 
 ## Usage
 
-- Access the application at `http://localhost:8000/graphiql`.
+- Access the application at `http://localhost:8000/graphiql` to explore the GraphQL API using the GraphiQL interface.
+- Use the API for booking and availability management with authentication via Laravel Sanctum.
 
-<!-- ## Testing
+## Authentication for GraphQL API
+
+To interact with the GraphQL API, you need to authenticate using a token. Follow these steps to register, log in, and obtain the token:
+
+1. **Register a new user**:
+   Send a POST request to the `api/register` endpoint with the following payload:
+   ```json
+   {
+       "name": "John Doe",
+       "email": "johndoe@example.com",
+       "password": "password",
+       "password_confirmation": "password"
+   }
+   ```
+
+2. **Log in with the registered user**:
+   Send a POST request to the `api/login` endpoint with the following payload:
+   ```json
+   {
+       "email": "johndoe@example.com",
+       "password": "password"
+   }
+   ```
+
+   The response will include an authentication token:
+   ```json
+   {
+       "token": "your-authentication-token"
+   }
+   ```
+
+3. **Use the token in GraphQL requests**:
+   Include the token in the `Authorization` header when making GraphQL API requests:
+   ```http
+   Authorization: Bearer your-authentication-token
+   ```
+
+### Example GraphQL Query
+
+Here is an example of a GraphQL query to fetch bookings:
+
+```graphql
+query {
+  bookings {
+    id
+    user {
+      name
+      email
+    }
+    start_time
+    end_time
+  }
+}
+```
+
+Use a tool like Postman or the GraphiQL interface to test the API with the token included in the headers.
+
+## Testing
 
 Run the test suite using PHPUnit:
 ```bash
 php artisan test
-``` -->
+```
 
 ## Contributing
 
